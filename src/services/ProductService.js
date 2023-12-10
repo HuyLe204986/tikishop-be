@@ -19,10 +19,10 @@ const createProduct = (newProduct) => {
                 image, 
                 type, 
                 price, 
-                countInStock, 
+                countInStock: Number(countInStock), 
                 rating, 
                 description,
-                discount,
+                discount: Number(discount),
             })
             if(newProduct) {
                 resolve({
