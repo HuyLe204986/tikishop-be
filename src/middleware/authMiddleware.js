@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
                 status: 'ERROR',
             })
         }
-        console.log('user ', user);
+        // console.log('user ', user);
         if(user?.isAdmin) {
             next();
         }else {

@@ -66,7 +66,7 @@ const loginUser = (userLogin) => {
                 isAdmin: checkUser.isAdmin,
             })
 
-            console.log("access_token", access_token)
+            // console.log("access_token", access_token)
             resolve({
                 status: 'OK',
                 message: "SUCCESS",
@@ -91,7 +91,7 @@ const updateUser = (id, data) => {
             }
             const updateUser = await User.findByIdAndUpdate(id, data, {new: true})
 
-            console.log(updateUser);
+            // console.log(updateUser);
 
             resolve({
                 status: 'OK',
@@ -116,7 +116,7 @@ const deleteUser = (id) => {
             }
             await User.findByIdAndDelete(id)
 
-            console.log(updateUser);
+            // console.log(updateUser);
 
             resolve({
                 status: 'OK',
@@ -148,7 +148,7 @@ const getDetailsUser = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             const user = await User.findOne({_id: id});
-            console.log('user-----', user);
+            // console.log('user-----', user);
             if(!user) {
                 resolve({
                     status: 'OK',

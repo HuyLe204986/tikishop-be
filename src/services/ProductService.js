@@ -38,7 +38,7 @@ const createProduct = (newProduct) => {
 }
 
 const updateProduct = (id, data) => {
-    console.log('update data',data)
+    // console.log('update data',data)
     return new Promise(async (resolve, reject) => {
         try {
             const checkProduct = await Product.findOne({_id: id});
@@ -50,7 +50,7 @@ const updateProduct = (id, data) => {
             }
             const updateProduct = await Product.findByIdAndUpdate(id, data, {new: true})
 
-            console.log('data duoc update',updateProduct);
+            // console.log('data duoc update',updateProduct);
 
             resolve({
                 status: 'OK',
@@ -108,7 +108,7 @@ const getAllProduct = (limit, page, sort, filter) => {
             if(sort) {
                 const objectSort = {}
                 objectSort[sort[1]] = sort[0];
-                console.log(objectSort);
+                // console.log(objectSort);
                 const allProductSort = await Product.find().limit(limit).skip(skip).sort(objectSort);
                 resolve({
                     status: 'OK',
