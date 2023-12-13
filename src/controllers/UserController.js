@@ -48,6 +48,7 @@ const loginUser = async (req, res) => {
             })
         }
         const response = await UserService.loginUser(req.body);
+        console.log('response', response);
         const {refresh_token, ...newResponse} = response
         res.cookie('refresh_token', refresh_token, {
             httpOnly: true,
@@ -55,8 +56,9 @@ const loginUser = async (req, res) => {
             sameSite: 'strict',
             path: '/',
         })
-        return res.status(200).json({...newReponse, refresh_token})
+        return res.status(200).json({...newResponse, refresh_token})
     } catch (error) {
+        console.log('error: ', error);
         return res.status(404).json({
             message: error
         })
