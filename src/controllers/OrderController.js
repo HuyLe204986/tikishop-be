@@ -1,7 +1,7 @@
 const OrderService = require('../services/OrderService')
 
 const createOrder = async (req, res) => {
-    // console.log('req', req.body);
+    console.log('req', req.body);
     try { 
         const { paymentMethod, itemsPrice, shippingPrice, totalPrice, fullName, address, city, phone } = req.body
         if (!paymentMethod || !itemsPrice || !shippingPrice || !totalPrice || !fullName || !address || !city || !phone) {

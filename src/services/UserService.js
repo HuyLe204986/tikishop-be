@@ -44,7 +44,7 @@ const loginUser = (userLogin) => {
             })
             if(!checkUser) {
                 resolve({
-                    status: 'ERROR', 
+                    status: 'ERR', 
                     message: 'The user is not defined'
                 })
             } 
@@ -52,7 +52,7 @@ const loginUser = (userLogin) => {
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
             if(!comparePassword) {
                 resolve({
-                    status: 'ERROR', 
+                    status: 'ERR', 
                     message: 'The password or user is incorrect'
                 })
             }
@@ -85,7 +85,7 @@ const updateUser = (id, data) => {
             const checkUser = await User.findOne({_id: id});
             if(!checkUser) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined'
                 })
             }
@@ -110,7 +110,7 @@ const deleteUser = (id) => {
             const checkUser = await User.findOne({_id: id});
             if(!checkUser) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined'
                 })
             }
@@ -131,8 +131,7 @@ const deleteUser = (id) => {
 const getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            const allUser = await User.find();
-
+            const allUser = await User.find().sort({createdAt: -1, updatedAt: -1});
             resolve({
                 status: 'OK',
                 message: "Get user successfully",
@@ -151,7 +150,7 @@ const getDetailsUser = (id) => {
             // console.log('user-----', user);
             if(!user) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined'
                 })
             }

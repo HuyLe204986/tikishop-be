@@ -58,8 +58,9 @@ const createOrder = (newOrder) => {
                     user: user,
                     isPaid, paidAt
                 })
+                console.log("createdOrder", createdOrder);
                 if (createdOrder) {
-                    await EmailService.sendEmailCreateOrder(email,orderItems)
+                    // await EmailService.sendEmailCreateOrder(email,orderItems)
                     resolve({
                         status: 'OK',
                         message: 'success'
@@ -67,7 +68,7 @@ const createOrder = (newOrder) => {
                 }
             }
         } catch (e) {
-            // console.log('e', e);
+            console.log(' co loi xay ra ', e);
             reject(e)
         }
     })
@@ -78,7 +79,7 @@ const getAllOrderDetails = (id) => {
         try {
             const order = await Order.find({
                 user: id
-            })
+            }).sort({createdAt: -1, updatedAt: -1})
             if (order === null) {
                 resolve({
                     status: 'ERR',
@@ -103,6 +104,7 @@ const getOrderDetails = (id) => {
             const order = await Order.findById({
                 _id: id
             })
+            console.log('ỏder', order);
             if (order === null) {
                 resolve({
                     status: 'ERR',
@@ -116,7 +118,7 @@ const getOrderDetails = (id) => {
                 data: order
             })
         } catch (e) {
-            // console.log('e', e)
+            console.log('co loi xay ra', e)
             reject(e)
         }
     })

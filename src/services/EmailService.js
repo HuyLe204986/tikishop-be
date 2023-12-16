@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const dotenv = require('dotenv');
 dotenv.config()
-// var inlineBase64 = require('nodemailer-plugin-inline-base64');
+var inlineBase64 = require('nodemailer-plugin-inline-base64');
 
 const sendEmailCreateOrder = async (email,orderItems) => {
   let transporter = nodemailer.createTransport({
@@ -13,7 +13,7 @@ const sendEmailCreateOrder = async (email,orderItems) => {
       pass: process.env.MAIL_PASSWORD, // generated ethereal password
     },
   });
-//   transporter.use('compile', inlineBase64({cidPrefix: 'somePrefix_'}));
+  transporter.use('compile', inlineBase64({cidPrefix: 'somePrefix_'}));
 
   let listItem = '';
   const attachImage = []

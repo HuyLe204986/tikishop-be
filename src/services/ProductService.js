@@ -10,7 +10,7 @@ const createProduct = (newProduct) => {
             })
             if(checkProduct) {
                 resolve({
-                    status: 'OK', 
+                    status: 'ERR', 
                     message: 'The name of product is already'
                 })
             }  
@@ -69,7 +69,7 @@ const deleteProduct = (id) => {
             const checkProduct = await Product.findOne({_id: id});
             if(!checkProduct) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The product is not defined'
                 })
             }
@@ -95,7 +95,7 @@ const getAllProduct = (limit, page, sort, filter) => {
                 const label = filter[0];
                 const allObjectFilter = await Product.find({
                     [label]: { '$regex': filter[1] }
-                }).limit(limit).skip(skip)
+                }).limit(limit).skip(skip).sort({createdAt: -1, updatedAt: -1})
                 resolve({
                     status: 'OK',
                     message: "Get product successfully",
@@ -109,7 +109,7 @@ const getAllProduct = (limit, page, sort, filter) => {
                 const objectSort = {}
                 objectSort[sort[1]] = sort[0];
                 // console.log(objectSort);
-                const allProductSort = await Product.find().limit(limit).skip(skip).sort(objectSort);
+                const allProductSort = await Product.find().limit(limit).skip(skip).sort(objectSort).sort({createdAt: -1, updatedAt: -1});
                 resolve({
                     status: 'OK',
                     message: "Get product successfully",
@@ -120,15 +120,15 @@ const getAllProduct = (limit, page, sort, filter) => {
                 })
             }
             if(!limit) {
-                allProduct = await Product.find();
+                allProducts = await Product.find().sort({createdAt: -1, updatedAt: -1});
             }else {
-                allProduct = await Product.find().limit(limit).skip(skip);
+                allProducts = await Product.find().limit(limit).skip(skip).sort({createdAt: -1, updatedAt: -1});
             }
 
             resolve({
                 status: 'OK',
                 message: "Get product successfully",
-                data: allProduct,
+                data: allProducts,
                 total: totalProduct,
                 totalPage: Math.ceil(totalProduct / limit),
                 pageCurrent: Number(page + 1),
@@ -145,7 +145,7 @@ const getDetailsProduct = (id) => {
             const product = await Product.findOne({_id: id});
             if(!product) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The product is not defined'
                 })
             }
